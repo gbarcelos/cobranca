@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +21,8 @@ import br.com.oak.aworks.cobranca.repository.Titulos;
 @Controller
 @RequestMapping("/titulos")
 public class TituloController {
+
+	private static final String CADASTRO_VIEW = "CadastroTitulo";
 
 	@Autowired
 	private Titulos titulos;
@@ -37,18 +40,28 @@ public class TituloController {
 	@RequestMapping("/novo")
 	public ModelAndView novo() {
 
-		final ModelAndView mav = new ModelAndView("CadastroTitulo");
+		final ModelAndView mav = new ModelAndView(CADASTRO_VIEW);
 
 		mav.addObject(new Titulo());
 
 		return mav;
 	}
 
+	@RequestMapping("{codigo}")
+	public ModelAndView edicao(@PathVariable("codigo") Titulo titulo) {
+
+		final ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
+
+		mv.addObject(titulo);
+
+		return mv;
+	}
+
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {
 
 		if (errors.hasErrors()) {
-			return "CadastroTitulo";
+			return CADASTRO_VIEW;
 		}
 
 		titulos.save(titulo);
