@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.oak.aworks.cobranca.model.StatusTitulo;
 import br.com.oak.aworks.cobranca.model.Titulo;
@@ -26,7 +27,7 @@ public class TituloController {
 	@RequestMapping
 	public ModelAndView pesquisar() {
 
-		ModelAndView mav = new ModelAndView("PesquisaTitulos");
+		final ModelAndView mav = new ModelAndView("PesquisaTitulos");
 
 		mav.addObject("titulos", titulos.findAll());
 
@@ -35,25 +36,26 @@ public class TituloController {
 
 	@RequestMapping("/novo")
 	public ModelAndView novo() {
-		ModelAndView mav = new ModelAndView("CadastroTitulo");
+
+		final ModelAndView mav = new ModelAndView("CadastroTitulo");
+
 		mav.addObject(new Titulo());
+
 		return mav;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView salvar(@Validated Titulo titulo, Errors errors) {
+	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {
 
-		ModelAndView mav = new ModelAndView("CadastroTitulo");
-		
 		if (errors.hasErrors()) {
-			return mav;
+			return "CadastroTitulo";
 		}
 
 		titulos.save(titulo);
 
-		mav.addObject("mensagem", "Titulo salvo com sucesso");
+		attributes.addFlashAttribute("mensagem", "Título salvo com sucesso!");
 
-		return mav;
+		return "redirect:/titulos/novo";
 	}
 
 	@ModelAttribute("todosStatusTitulo")
