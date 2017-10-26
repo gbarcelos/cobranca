@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.oak.aworks.cobranca.model.StatusTitulo;
 import br.com.oak.aworks.cobranca.model.Titulo;
 import br.com.oak.aworks.cobranca.repository.Titulos;
+import br.com.oak.aworks.cobranca.repository.filter.TituloFilter;
 
 @Service
 public class CadastroTituloService {
@@ -44,5 +45,10 @@ public class CadastroTituloService {
 		titulos.save(titulo);
 
 		return StatusTitulo.RECEBIDO.getDescricao();
+	}
+
+	public List<Titulo> filtrar(final TituloFilter filtro) {
+		String descricao = filtro.getDescricao() == null ? "%" : filtro.getDescricao();
+		return titulos.findByDescricaoContaining(descricao);
 	}
 }

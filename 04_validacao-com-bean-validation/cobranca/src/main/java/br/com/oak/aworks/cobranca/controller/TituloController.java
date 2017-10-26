@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.oak.aworks.cobranca.model.StatusTitulo;
 import br.com.oak.aworks.cobranca.model.Titulo;
+import br.com.oak.aworks.cobranca.repository.filter.TituloFilter;
 import br.com.oak.aworks.cobranca.service.CadastroTituloService;
 
 @Controller
@@ -29,11 +30,12 @@ public class TituloController {
 	private CadastroTituloService cadastroTituloService;
 
 	@RequestMapping
-	public ModelAndView pesquisar() {
+	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
+		List<Titulo> todosTitulos = cadastroTituloService.filtrar(filtro);
 
 		final ModelAndView mav = new ModelAndView("PesquisaTitulos");
 
-		mav.addObject("titulos", cadastroTituloService.findAll());
+		mav.addObject("titulos", todosTitulos);
 
 		return mav;
 	}
@@ -85,7 +87,7 @@ public class TituloController {
 		attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");
 		return "redirect:/titulos";
 	}
-	
+
 	@RequestMapping(value = "/{codigo}/receber", method = RequestMethod.PUT)
 	public @ResponseBody String receber(@PathVariable Long codigo) {
 		return cadastroTituloService.receber(codigo);
