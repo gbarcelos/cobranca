@@ -1,1 +1,14 @@
-/.recommenders/
+*.class
+.DS_Store
+Servers/*
+.metadata
+.settings
+.recommenders
+.classpath
+.project
+target/
+bin/
+rebel.xml
+.mvn*
+mvnw*
+*.7z
