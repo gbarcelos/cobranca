@@ -1,0 +1,8 @@
+br\com\oak\aworks\cobranca\CobrancaApplication.class
+br\com\oak\aworks\cobranca\model\StatusTitulo.class
+br\com\oak\aworks\cobranca\repository\filter\TituloFilter.class
+br\com\oak\aworks\cobranca\controller\TituloController.class
+br\com\oak\aworks\cobranca\repository\Titulos.class
+br\com\oak\aworks\cobranca\service\CadastroTituloService.class
+br\com\oak\aworks\cobranca\model\Titulo.class
+br\com\oak\aworks\cobranca\ServletInitializer.class
