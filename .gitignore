@@ -11,3 +11,6 @@ rebel.xml
 .mvn*
 mvnw*
 Servers
+/.metadata
+/RemoteSystemsTempFiles
+/Servers

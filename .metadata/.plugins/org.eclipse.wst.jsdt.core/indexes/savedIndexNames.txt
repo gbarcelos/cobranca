@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+C:\PessoalG\Java\wks\Estudos\AWCSCobranca\04_validacao-com-bean-validation\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3797364570.index
-3798894272.index
-2524183037.index
-2284278574.index
-577585024.index
-4077944668.index
